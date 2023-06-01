@@ -1,4 +1,4 @@
-package exceptions;
+package com.fooddelivery.food_delivery.exceptions;
 
 public class ItemNotFoundException extends RuntimeException {
 

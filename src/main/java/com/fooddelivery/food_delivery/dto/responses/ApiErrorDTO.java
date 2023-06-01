@@ -1,4 +1,4 @@
-package com.fooddelivery.food_delivery.dto;
+package com.fooddelivery.food_delivery.dto.responses;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;

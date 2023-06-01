@@ -1,14 +1,13 @@
 package com.fooddelivery.food_delivery.models;
 
 import jakarta.persistence.*;
-import org.antlr.v4.runtime.misc.NotNull;
 
 @Entity
 @Table(name = "food")
 public class Food {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO) // GenerationType.IDENTITY
+    @GeneratedValue(strategy = GenerationType.SEQUENCE) // GenerationType.IDENTITY
     private Long id;
 
     @Column(nullable = false, length = 255, unique = false)

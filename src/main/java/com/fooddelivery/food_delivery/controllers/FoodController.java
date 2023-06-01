@@ -1,10 +1,13 @@
 package com.fooddelivery.food_delivery.controllers;
 
+import com.fooddelivery.food_delivery.dto.requests.FoodRequest;
+import com.fooddelivery.food_delivery.dto.responses.FoodResponse;
 import com.fooddelivery.food_delivery.models.Food;
+import com.fooddelivery.food_delivery.services.FoodService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.fooddelivery.food_delivery.services.FoodService;
 
 import java.util.List;
 
@@ -19,26 +22,26 @@ public class FoodController {
     }
 
     @PostMapping
-    public ResponseEntity<Food> createFood(@RequestBody Food food) {
-        Food createdFood = foodService.saveFood(food);
+    public ResponseEntity<FoodResponse> createFood(@RequestBody @Valid FoodRequest foodRequest) {
+        FoodResponse createdFood = foodService.saveFood(foodRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdFood);
     }
 
     @GetMapping
-    public ResponseEntity<List<Food>> getAllFood() {
-        List<Food> foodList = foodService.getAllFood();
+    public ResponseEntity<List<FoodResponse>> getAllFood() {
+        List<FoodResponse> foodList = foodService.getAllFood();
         return ResponseEntity.status(HttpStatus.OK).body(foodList);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Food> getFoodById(@PathVariable("id") Long id) {
-        Food food = foodService.getFoodById(id);
+    public ResponseEntity<FoodResponse> getFoodById(@PathVariable("id") Long id) {
+        FoodResponse food = foodService.getFoodById(id);
         return ResponseEntity.status(HttpStatus.OK).body(food);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Food> updateFood(@PathVariable("id") Long id, @RequestBody Food food) {
-        Food updatedFood = foodService.updateFoodById(id, food);
+    public ResponseEntity<FoodResponse> updateFood(@PathVariable("id") Long id, @RequestBody @Valid FoodRequest food) {
+        FoodResponse updatedFood = foodService.updateFoodById(id, food);
         return ResponseEntity.status(HttpStatus.OK).body(updatedFood);
     }
 
