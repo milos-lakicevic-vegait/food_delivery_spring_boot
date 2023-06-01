@@ -1,28 +1,30 @@
 package com.fooddelivery.food_delivery.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import org.antlr.v4.runtime.misc.NotNull;
 
 @Entity
+@Table(name = "food")
 public class Food {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO) // GenerationType.IDENTITY
     private Long id;
+
+    @Column(nullable = false, length = 255, unique = false)
     private String name;
 
-    private float price;
+    @Column(nullable = false)
+    private Double price;
 
+    @Column(nullable = false, length = 255)
     private String picture;
 
     public Food() {
 
     }
 
-    public Food(Long id, String name, float price, String picture) {
-        this.id = id;
+    public Food(String name, Double price, String picture) {
         this.name = name;
         this.price = price;
         this.picture = picture;
@@ -37,7 +39,7 @@ public class Food {
         return this.name;
     }
 
-    public float getPrice() {
+    public Double getPrice() {
         return this.price;
     }
 
@@ -50,7 +52,7 @@ public class Food {
         this.name = name;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

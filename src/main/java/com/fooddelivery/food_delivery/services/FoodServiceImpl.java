@@ -1,19 +1,22 @@
 package com.fooddelivery.food_delivery.services;
 
 import com.fooddelivery.food_delivery.models.Food;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import com.fooddelivery.food_delivery.repositories.FoodRepository;
+import exceptions.ItemNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
 @Service
-public class FoodServiceImpl implements FoodService{
+public class FoodServiceImpl implements FoodService {
 
-    @Autowired
-    private FoodRepository foodRepository;
+    private final FoodRepository foodRepository;
+
+    public FoodServiceImpl(FoodRepository foodRepository) {
+        this.foodRepository = foodRepository;
+    }
 
     @Override
     public Food saveFood(Food food) {
@@ -27,8 +30,7 @@ public class FoodServiceImpl implements FoodService{
 
     @Override
     public Food getFoodById(Long id) {
-        Optional<Food> food = foodRepository.findById(id);
-        return food.orElse(null);
+        return foodRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("Food Not Found"));
     }
 
     @Override
@@ -39,7 +41,7 @@ public class FoodServiceImpl implements FoodService{
             if (Objects.nonNull(food.getName()) && !"".equalsIgnoreCase(food.getName())) {
                 oldFood.setName(food.getName());
             }
-            if (Objects.nonNull(food.getPrice())){
+            if (Objects.nonNull(food.getPrice())) {
                 oldFood.setPrice(food.getPrice());
             }
             if (Objects.nonNull(food.getPicture()) && !"".equalsIgnoreCase(food.getPicture())) {
